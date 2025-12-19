@@ -42,20 +42,20 @@ y con distintas frecuencias de actualización.
 
 ---
 
-## Pipeline ETL
+### Pipeline ETL
 
-### Extract
+#### Extract
 - Datos de ventas simulados (POS)
 - Datos de clientes simulados (CRM)
 
-### Transform
+#### Transform
 - Conversión de timestamps a fechas
 - Eliminación de registros duplicados
 - Cálculo del total de venta
 - Enriquecimiento con segmento de cliente
 - Normalización de columnas
 
-### Load
+#### Load
 - Carga de los datos transformados en SQLite
 - Creación de la tabla `ventas_consolidadas`
 - Exportación de resultados a Excel
@@ -100,6 +100,103 @@ permitiendo validar visualmente el proceso de extracción.
 
 ---
 
+## Día 3: Transformación, Validaciones y Enriquecimiento de Datos
+
+### Objetivo
+Aplicar transformaciones avanzadas, validaciones de reglas de negocio y
+enriquecimiento de datos sobre un conjunto de datos estructurado,
+con el fin de garantizar calidad, consistencia e información analítica útil.
+
+Este día se enfoca en la etapa **Transform (T)** del pipeline ETL.
+
+---
+
+### Conjunto de datos
+Se trabajó con un dataset sintético de clientes que incluye:
+
+- Edad
+- Ingresos
+- Gastos mensuales
+- Categoría de cliente
+- Fecha de registro
+- Email
+- Teléfono
+
+El dataset contiene **errores intencionales** para simular escenarios reales:
+- Edades fuera de rango
+- Ingresos negativos
+- Gastos mayores a los ingresos
+
+---
+
+### Validaciones aplicadas
+
+#### Validación de edad
+- Se validó que la edad esté entre 18 y 80 años.
+- Las edades inválidas fueron marcadas como `NaN`.
+- Se creó una columna auxiliar `edad_valida` para control de calidad.
+
+#### Validación de ingresos
+- Se identificaron ingresos negativos.
+- Los valores inválidos fueron corregidos y marcados como faltantes (`NaN`).
+
+#### Validación gastos vs ingresos
+- Se calculó el ratio gasto / ingreso.
+- Cuando los gastos superaban los ingresos, se ajustaron al **80% del ingreso**.
+
+---
+
+### Transformaciones y enriquecimiento
+
+- Clasificación por grupo etario (`grupo_edad`)
+- Cálculo de capacidad de ahorro
+- Cálculo de ratio de ahorro
+- Clasificación financiera:
+  - Ahorra_Mucho
+  - Ahorra_Poco
+  - Equilibra
+  - Déficit
+- Extracción de código de área desde el teléfono
+- Cálculo de antigüedad del cliente (días y meses)
+
+---
+
+### Métricas agregadas
+
+Se generaron métricas agrupadas por grupo de edad:
+
+- Promedio, mediana y desviación estándar de ingresos
+- Capacidad de ahorro promedio
+- Ratio de ahorro promedio
+
+Estas métricas permiten analizar el comportamiento financiero
+por segmento etario.
+
+---
+
+### Evidencia generada
+
+Se creó un archivo Excel consolidado con múltiples hojas:
+
+- `datos_originales`
+- `datos_transformados`
+- `antes_vs_despues`
+- `metricas_por_edad`
+- `resumen_validacion`
+
+**Archivo de evidencia:**
+- `evidencia_ETL_dia3_transformaciones.xlsx`
+
+Este archivo documenta de forma clara y auditable
+todo el proceso de transformación y validación.
+
+---
+
+### Notebooks asociados
+- `ETL_Semana4_Dia3_Transformaciones.ipynb`
+
+---
+
 ## Cómo ejecutar el proyecto
 
 1. Activar el entorno virtual  
@@ -107,6 +204,7 @@ permitiendo validar visualmente el proceso de extracción.
 3. Ejecutar los notebooks según la etapa:
    - `ETL_Semana4_Dia1.ipynb`
    - `ETL_Semana4_Dia2_Extraccion.ipynb`
+   - `ETL_Semana4_Dia3_Transformaciones.ipynb`
 
 ---
 
@@ -125,6 +223,8 @@ analisis-datos-ETL/
 ├── productos.json
 ├── ventas.db
 ├── evidencia_extraccion_dia2.xlsx
+├── ETL_Semana4_Dia3_Transformaciones.ipynb
+├── evidencia_ETL_dia3_transformaciones.xlsx
 ├── README.md
 └── .gitignore
 ```
