@@ -1,163 +1,86 @@
-\# ETL – Día 1 | Integración de Datos con Python y SQLite
-
-
-
-\## 📌 Contexto
-
-Este proyecto corresponde al Día 1 de la semana 4 del curso de Análisis de Datos,
-
-enfocado en el diseño conceptual y práctico de un pipeline ETL (Extract, Transform, Load).
-
-
-
-El objetivo es integrar datos provenientes de distintos sistemas de una cadena de tiendas
-
-minoristas para generar una fuente de datos unificada y lista para análisis analítico.
-
-
+# ETL – Día 1  
+## Integración de Datos con Python y SQLite
 
 ---
 
+## Descripción General
+Este proyecto corresponde al **Día 1 de la Semana 4** del curso de **Análisis de Datos**  
+y se centra en el diseño e implementación de un **pipeline ETL (Extract, Transform, Load)**.
 
-
-\## 🏪 Escenario de Negocio
-
-Una cadena de tiendas minoristas desea integrar información desde:
-
-
-
-\- Sistema de Punto de Venta (POS)
-
-\- Sistema de Inventario
-
-\- CRM de clientes
-
-\- Sitio web (analítica digital)
-
-
-
-Los datos se encuentran fragmentados, en distintos formatos y con diferentes frecuencias
-
-de actualización.
-
-
+El objetivo es integrar datos provenientes de múltiples sistemas empresariales
+para generar una fuente de datos unificada, limpia y lista para análisis.
 
 ---
 
+## Escenario de Negocio
+Una cadena de tiendas minoristas necesita consolidar información desde:
 
+- Sistema de Punto de Venta (POS)
+- Sistema de Inventario
+- CRM de clientes
+- Sitio web (analítica digital)
 
-\## 🛠️ Tecnologías Utilizadas
-
-\- Python 3
-
-\- Pandas
-
-\- SQLite
-
-\- Jupyter Notebook
-
-\- Git
-
-
+Los datos se encuentran fragmentados, en formatos heterogéneos
+y con distintas frecuencias de actualización.
 
 ---
 
-
-
-\## 🔄 Proceso ETL
-
-
-
-\### Extract
-
-\- Datos de ventas simulados (POS)
-
-\- Información de clientes simulada (CRM)
-
-\- Datos de analítica web simulados (no persistidos en este ejercicio)
-
-
-
-\### Transform
-
-\- Conversión de marcas de tiempo a fechas
-
-\- Eliminación de registros duplicados
-
-\- Cálculo de métricas (total de venta)
-
-\- Enriquecimiento de ventas con segmento de cliente
-
-\- Normalización de columnas
-
-
-
-\### Load
-
-\- Carga de los datos transformados en una base de datos SQLite
-
-\- Creación de la tabla `ventas\_consolidadas`
-
-\- Exportación de resultados finales a Excel para validación y visualización
-
-
-
-
+## Tecnologías Utilizadas
+- Python 3
+- Pandas
+- SQLite
+- Jupyter Notebook
+- Git & GitHub
 
 ---
 
+## Pipeline ETL
 
+### Extract
+- Datos de ventas simulados (POS)
+- Datos de clientes simulados (CRM)
 
-\## 📊 Resultado Final
+### Transform
+- Conversión de timestamps a fechas
+- Eliminación de registros duplicados
+- Cálculo del total de venta
+- Enriquecimiento con segmento de cliente
+- Normalización de columnas
 
-Se generó una base de datos SQLite (`ventas\_etl.db`) con una tabla consolidada de ventas,
-
-verificada tanto desde Python como mediante consultas SQL directas.
-
-
-
-La tabla final contiene información limpia, consistente y lista para análisis.
-
-
-
----
-
-
-
-\## ✅ Conclusión
-
-Este ejercicio demuestra la implementación completa de un pipeline ETL real,
-
-utilizando Python como orquestador del proceso y SQLite como sistema de almacenamiento,
-
-siguiendo buenas prácticas de integración y calidad de datos.
+### Load
+- Carga de los datos transformados en SQLite
+- Creación de la tabla `ventas_consolidadas`
+- Exportación de resultados a Excel
 
 ---
 
-## ▶️ Cómo ejecutar el proyecto
+## Resultados
+Se generó una base de datos SQLite (`ventas_etl.db`) con información consolidada
+y validada mediante consultas SQL.
 
-1. Activar el entorno virtual
-2. Abrir Jupyter Notebook
-3. Ejecutar el archivo `ETL_Semana4_Dia1.ipynb` de arriba hacia abajo
-4. La base de datos `ventas_etl.db` y el archivo `ventas_consolidadas.xlsx`
-   se generan automáticamente
+También se generó un archivo Excel como evidencia del proceso.
 
+---
 
-```
+## Cómo ejecutar el proyecto
 
+1. Activar el entorno virtual  
+2. Abrir Jupyter Notebook  
+3. Ejecutar `ETL_Semana4_Dia1.ipynb`  
+4. Archivos generados automáticamente:
+   - `ventas_etl.db`
+   - `ventas_consolidadas.xlsx`
+
+---
+
+## Estructura del Proyecto
+
+```text
 analisis-datos-ETL/
-
 │
-
-├── dia1\_etl\_pipeline.ipynb
-
-├── ventas\_etl.db
-
-├── ventas\_consolidadas.xlsx
-
+├── ETL_Semana4_Dia1.ipynb
+├── ventas_etl.db
+├── ventas_consolidadas.xlsx
 ├── README.md
-
 └── .gitignore
-
 ```
-
