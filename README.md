@@ -33,9 +33,10 @@ y con distintas frecuencias de actualización.
 - Python 3
 - Pandas
 - NumPy
-- SQLite
+- SQLite (base de datos relacional)
 - Jupyter Notebook
 - Git & GitHub
+- Logging (módulo logging de Python)
 
 ---
 
@@ -283,15 +284,151 @@ donde la calidad de los datos es prioritaria frente a la cantidad.
 
 ---
 
+## Día 5: Pipeline ETL Robusto y Reutilizable (Enfoque Productivo)
+
+### Objetivo
+Diseñar un pipeline ETL con una arquitectura más cercana a entornos reales,
+incorporando buenas prácticas de ingeniería de datos como:
+
+- Programación orientada a objetos
+- Logging estructurado
+- Manejo robusto de errores
+- Métricas de ejecución
+- Reutilización de código
+
+Este día marca la transición desde notebooks exploratorios
+hacia **pipelines ejecutables en producción**.
+
+---
+
+### Pipeline base reutilizable
+
+Se implementó una **clase base de pipeline ETL** que define la estructura
+estándar del proceso Extract, Transform y Load.
+
+**Archivo:**
+- `base_pipeline.py`
+
+#### Características
+- Método central `run()` que orquesta todo el flujo ETL
+- Métodos abstractos a sobrescribir:
+  - `extract()`
+  - `transform(data)`
+  - `load(data)`
+- Registro de métricas:
+  - Tiempo de ejecución
+  - Registros procesados
+  - Errores
+- Logging uniforme y centralizado
+- Manejo controlado de excepciones
+
+Este archivo funciona como **plantilla base** para futuros pipelines,
+evitando reescribir lógica común.
+
+---
+
+### Pipeline de prueba
+
+Para validar el correcto funcionamiento de la clase base,
+se creó un pipeline mínimo de prueba.
+
+**Archivo:**
+- `test_base_pipeline.py`
+
+**Objetivo:**
+- Verificar que la estructura base se ejecuta correctamente
+- Confirmar el flujo completo del pipeline
+- Validar el logging sin depender de datos reales
+
+---
+
+### Pipeline ETL robusto completo
+
+Se desarrolló un pipeline ETL funcional que integra todas las buenas prácticas
+aprendidas durante el curso.
+
+**Archivo:**
+- `ETL_Dia5_Pipeline_Robusto.py`
+
+#### Características principales
+- Extracción con estrategia de reintentos
+- Transformaciones con validaciones explícitas
+- Carga en SQLite usando transacciones
+- Rollback automático ante fallos
+- Logging detallado de cada etapa
+- Reporte final de métricas
+
+Este pipeline representa un escenario cercano a producción
+y sirve como referencia para futuros desarrollos ETL.
+
+---
+
+### Logging y evidencias
+
+Durante la ejecución de los pipelines se genera un archivo de log
+que registra todas las fases del proceso ETL.
+
+**Archivo generado:**
+- `etl_pipeline.log`
+
+> Nota: el archivo de log puede no estar versionado en Git  
+> según la configuración del archivo `.gitignore`.
+
+El log incluye:
+- Inicio y término del pipeline
+- Intentos de extracción
+- Resultados de transformaciones
+- Estado de la carga
+- Duración total del proceso
+- Detalle de errores (si ocurren)
+
+---
+
+### Enfoque final del proyecto
+
+Con el Día 5, el proyecto evoluciona desde un enfoque académico
+basado en notebooks hacia una **arquitectura reutilizable,
+escalable y alineada con prácticas profesionales** de ingeniería de datos.
+
+---
+
 ## Cómo ejecutar el proyecto
 
-1. Activar el entorno virtual  
+1. Activar el entorno virtual (analisis_datos_env)  
 2. Abrir Jupyter Notebook  
 3. Ejecutar los notebooks según la etapa:
    - `ETL_Semana4_Dia1.ipynb`
    - `ETL_Semana4_Dia2_Extraccion.ipynb`
    - `ETL_Semana4_Dia3_Transformaciones.ipynb`
    - `ETL_Semana4_Dia4_Carga.ipynb`
+
+### Ejecución de pipelines productivos (Día 5)
+
+Los pipelines del Día 5 están diseñados para ejecutarse
+directamente desde la consola, sin depender de Jupyter Notebook.
+Los comandos deben ejecutarse desde la carpeta raíz del proyecto.
+
+Ejecutar el pipeline ETL robusto:
+
+```bash
+python ETL_Dia5_Pipeline_Robusto.py
+```
+
+---
+
+Ejecutar la prueba de la plantilla base:
+
+```bash
+python test_base_pipeline.py
+```
+
+---
+
+## Estado del proyecto
+
+Proyecto finalizado como parte del curso de Análisis de Datos.
+La arquitectura del Día 5 permite extender el pipeline
+a nuevos orígenes de datos y escenarios productivos.
 
 ---
 
@@ -315,6 +452,9 @@ analisis-datos-ETL/
 ├── ETL_Semana4_Dia4_Carga.ipynb
 ├── ventas_etl_dia4.db
 ├── evidencia_ETL_dia4_carga_sql.xlsx
+├── ETL_Dia5_Pipeline_Robusto.py
+├── base_pipeline.py
+├── test_base_pipeline.py
 ├── README.md
 └── .gitignore
 ```

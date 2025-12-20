@@ -1,3 +1,7 @@
 .ipynb_checkpoints/
 __pycache__/
 *.pyc
+
+# ETL outputs
+*.db
+*.log
