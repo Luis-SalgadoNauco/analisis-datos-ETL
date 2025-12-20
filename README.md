@@ -32,6 +32,7 @@ y con distintas frecuencias de actualización.
 ## Tecnologías Utilizadas
 - Python 3
 - Pandas
+- NumPy
 - SQLite
 - Jupyter Notebook
 - Git & GitHub
@@ -62,7 +63,7 @@ y con distintas frecuencias de actualización.
 
 ---
 
-## Resultados
+### Resultados
 Se generó una base de datos SQLite (`ventas_etl.db`) con información consolidada
 y validada mediante consultas SQL.
 
@@ -192,8 +193,93 @@ todo el proceso de transformación y validación.
 
 ---
 
+## Día 4: Carga a Bases de Datos SQL con Validaciones
+
+### Objetivo
+Implementar la etapa **Load (L)** del pipeline ETL asegurando:
+
+- Integridad referencial
+- Consistencia de datos
+- Carga segura y validada en bases de datos SQL
+
+---
+
+### Esquema de base de datos
+
+Se creó una base de datos SQLite con las siguientes tablas:
+
+- `clientes`
+- `productos`
+- `ventas`
+
+Cada tabla incluye:
+- Claves primarias
+- Restricciones (`NOT NULL`, `UNIQUE`)
+- Claves foráneas en la tabla `ventas`
+
+---
+
+### Estrategia de carga
+
+- Uso de `to_sql()` para carga básica
+- Validación previa de claves foráneas
+- Filtrado de registros inválidos
+- Carga incremental controlada
+
+Solo se cargaron registros que cumplían las reglas de integridad referencial.
+
+---
+
+### Validaciones durante la carga
+
+- Clientes inexistentes en ventas → descartados
+- Productos inexistentes en ventas → descartados
+- Confirmación de registros cargados por tabla
+
+Resultado:
+- Dataset original de ventas: 20 registros
+- Ventas válidas cargadas: **11 registros**
+
+---
+
+### Verificación post-carga
+
+- Conteo de registros por tabla
+- Consulta SQL con joins entre clientes y ventas
+- Validación de coherencia analítica
+
+Ejemplo:
+- Ventas por cliente
+- Total de ventas por cliente
+- Clientes sin ventas correctamente identificados
+
+---
+
+### Evidencia generada
+
+Se generó un archivo Excel con información completa del proceso:
+
+- `Clientes cargados`
+- `Productos cargados`
+- `Ventas finales válidas`
+- `Resultados de consultas analíticas`
+
+
+**Archivo de evidencia:**
+- `evidencia_ETL_dia4_carga_sql.xlsx`
+
+---
+
+Este ejercicio simula un escenario real de carga productiva,
+donde la calidad de los datos es prioritaria frente a la cantidad.
+
+---
 ### Notebooks asociados
+
+- `ETL_Semana4_Dia1.ipynb`
+- `ETL_Semana4_Dia2_Extraccion.ipynb`
 - `ETL_Semana4_Dia3_Transformaciones.ipynb`
+- `ETL_Semana4_Dia4_Carga.ipynb`
 
 ---
 
@@ -205,6 +291,7 @@ todo el proceso de transformación y validación.
    - `ETL_Semana4_Dia1.ipynb`
    - `ETL_Semana4_Dia2_Extraccion.ipynb`
    - `ETL_Semana4_Dia3_Transformaciones.ipynb`
+   - `ETL_Semana4_Dia4_Carga.ipynb`
 
 ---
 
@@ -225,6 +312,9 @@ analisis-datos-ETL/
 ├── evidencia_extraccion_dia2.xlsx
 ├── ETL_Semana4_Dia3_Transformaciones.ipynb
 ├── evidencia_ETL_dia3_transformaciones.xlsx
+├── ETL_Semana4_Dia4_Carga.ipynb
+├── ventas_etl_dia4.db
+├── evidencia_ETL_dia4_carga_sql.xlsx
 ├── README.md
 └── .gitignore
 ```
